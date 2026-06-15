@@ -4,7 +4,7 @@
   "versionName": "June '26",
   "private": true,
   "scripts": {
-    "android": "react-native run-android --appId com.ham2k.polo.alpha",
+    "android": "react-native run-android --appId com.cdpalma.polo.alpha",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
