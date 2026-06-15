@@ -13,6 +13,7 @@ import uiReducer from './ui'
 import settingsReducer from './settings'
 import localReducer from './local'
 import operationsReducer from './operations'
+import foldersReducer from './folders'
 import qsosReducer from './qsos'
 import stationReducer from './station'
 import timeReducer from './time'
@@ -45,6 +46,7 @@ const rootReducer = combineReducers({
   runtime: runtimeReducer,
   ui: uiReducer,
   operations: operationsReducer,
+  folders: foldersReducer,
   qsos: qsosReducer,
   station: stationReducer,
   time: timeReducer,
