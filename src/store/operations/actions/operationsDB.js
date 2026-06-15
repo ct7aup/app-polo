@@ -27,6 +27,7 @@ const operationFromRow = (row) => {
   data.uuid = row.uuid
   data.deleted = row.deleted
   data.synced = row.synced
+  data.folderUuid = row.folderUuid ?? null
 
   // Backwards compatibility, remove in the future
   if (data.createdOnMillis) {
@@ -58,7 +59,7 @@ const operationFromRow = (row) => {
 }
 
 const rowFromOperation = (operation) => {
-  const { uuid, local, deleted, startAtMillisMin, startAtMillisMax, qsoCount } = operation
+  const { uuid, local, deleted, startAtMillisMin, startAtMillisMax, qsoCount, folderUuid } = operation
 
   const operationClone = { ...operation }
   delete operationClone.synced
@@ -66,11 +67,12 @@ const rowFromOperation = (operation) => {
   delete operationClone.startAtMillisMin
   delete operationClone.startAtMillisMax
   delete operationClone.qsoCount
+  delete operationClone.folderUuid
   delete operationClone._useTemplates
   const data = JSON.stringify(operationClone)
   const localData = JSON.stringify(local)
 
-  return { uuid, data, localData, startAtMillisMin, startAtMillisMax, qsoCount, deleted }
+  return { uuid, data, localData, startAtMillisMin, startAtMillisMax, qsoCount, deleted, folderUuid: folderUuid ?? null }
 }
 
 export const loadOperations = () => async (dispatch, getState) => {
@@ -122,16 +124,16 @@ export const saveOperation = (operation, { synced = false } = {}) => async (disp
   await dbExecute(
     `
       INSERT INTO operations
-        (uuid, data, localData, startAtMillisMin, startAtMillisMax, qsoCount, deleted, synced)
+        (uuid, data, localData, startAtMillisMin, startAtMillisMax, qsoCount, deleted, synced, folderUuid)
       VALUES
-        (?, ?, ?, ?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT DO UPDATE SET
-        data = ?, localData = ?, startAtMillisMin = ?, startAtMillisMax = ?, qsoCount = ?, deleted = ?, synced = ?
+        data = ?, localData = ?, startAtMillisMin = ?, startAtMillisMax = ?, qsoCount = ?, deleted = ?, synced = ?, folderUuid = ?
     `,
     [
       row.uuid,
-      row.data, row.localData, row.startAtMillisMin, row.startAtMillisMax, row.qsoCount, !!row.deleted, !!synced,
-      row.data, row.localData, row.startAtMillisMin, row.startAtMillisMax, row.qsoCount, !!row.deleted, !!synced
+      row.data, row.localData, row.startAtMillisMin, row.startAtMillisMax, row.qsoCount, !!row.deleted, !!synced, row.folderUuid,
+      row.data, row.localData, row.startAtMillisMin, row.startAtMillisMax, row.qsoCount, !!row.deleted, !!synced, row.folderUuid
     ]
   )
 
@@ -178,6 +180,7 @@ export const mergeSyncOperations = ({ operations }) => async (dispatch, getState
         continue
       } else {
         operation.local = existing.local
+        operation.folderUuid = existing.folderUuid ?? null
       }
     }
     earliestSyncedAtMillis = Math.min(earliestSyncedAtMillis, operation.syncedAtMillis)
@@ -357,6 +360,6 @@ export const deleteHistoricalRecords = () => async (dispatch) => {
 }
 
 function fingerprintOperationData (operation) {
-  const sanitized = { ...operation, local: undefined, startAtMillisMin: undefined, startAtMillisMax: undefined, qsoCount: undefined }
+  const sanitized = { ...operation, local: undefined, startAtMillisMin: undefined, startAtMillisMax: undefined, qsoCount: undefined, folderUuid: undefined }
   return JSON.stringify(sanitized)
 }
