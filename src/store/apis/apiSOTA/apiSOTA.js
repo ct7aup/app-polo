@@ -22,7 +22,7 @@ const API_TIMEOUT = 3000 // 3 seconds
 export const SOTASSOConfig = {
   issuer: 'https://sso.sota.org.uk/auth/realms/SOTA/',
   clientId: 'polo',
-  redirectUrl: 'com.ham2k.polo.auth://sota',
+  redirectUrl: 'com.cdpalma.polo.auth://sota',
   scopes: ['openid']
 }
 
