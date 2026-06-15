@@ -1,4 +1,4 @@
-package com.ham2k.polo
+package com.cdpalma.polo
 
 import android.content.Intent
 import com.facebook.react.ReactActivity
