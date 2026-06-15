@@ -3,7 +3,20 @@
 
 import reducer from './operationsSlice'
 
-export * from './operationsSlice'
+export {
+  operationsSlice,
+  actions,
+  selectOperationsStatus,
+  selectAllOperations,
+  selectOperation,
+  selectLatestOperation,
+  selectOperationCall,
+  selectOperationsList,
+  selectOperationIds,
+  selectOperationsInFolder,
+  selectOperationIdsInFolder,
+  selectOperationCallInfo
+} from './operationsSlice'
 export * from './actions/operationsDB'
 export * from './actions/setOperationData'
 export * from './actions/dataExchangeActions'
