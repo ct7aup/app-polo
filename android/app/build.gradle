@@ -79,22 +79,23 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.ham2k.polo"
+    namespace "com.cdpalma.polo"
     defaultConfig {
-        applicationId "com.ham2k.polo"
+        applicationId "com.cdpalma.polo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode project.env.get("POLO_BUILD").toInteger()
         versionName project.env.get("POLO_BASE_VERSION")
-        resValue "string", "build_config_package", "com.ham2k.polo"
+        resValue "string", "build_config_package", "com.cdpalma.polo"
+        resValue "string", "app_name", "PoLo Local"
         manifestPlaceholders = [
-            appAuthRedirectScheme: 'com.ham2k.polo.auth'
+            appAuthRedirectScheme: 'com.cdpalma.polo.auth'
         ]
     }
 
     applicationVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
-            def baseName = "com.ham2k.polo-v${variant.versionCode}(${variant.versionName})"
+            def baseName = "com.cdpalma.polo-v${variant.versionCode}(${variant.versionName})"
             outputFileName = "${baseName}-${variant.name}.apk"
         }
     }
