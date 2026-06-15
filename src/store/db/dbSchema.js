@@ -12,7 +12,7 @@ import { queryOperations } from '../operations'
 
 import { dbExecute, dbSelectAll, dbSelectOne } from './db'
 
-const CURRENT_VERSION = 10
+const CURRENT_VERSION = 11
 
 export async function createTables (dbParams = {}) {
   let version
@@ -41,7 +41,17 @@ export async function createTables (dbParams = {}) {
           startAtMillisMax INTEGER,
           qsoCount INTEGER,
           deleted BOOLEAN DEFAULT false,
-          synced BOOLEAN DEFAULT false
+          synced BOOLEAN DEFAULT false,
+          folderUuid TEXT
+        )`, [], dbParams)
+    await dbExecute(`
+        CREATE TABLE IF NOT EXISTS folders (
+          uuid TEXT PRIMARY KEY NOT NULL,
+          parentUuid TEXT,
+          title TEXT NOT NULL,
+          createdAtMillis INTEGER,
+          updatedAtMillis INTEGER,
+          deleted BOOLEAN DEFAULT false
         )`, [], dbParams)
     await dbExecute(`
         CREATE TABLE IF NOT EXISTS qsos (
@@ -310,6 +320,22 @@ export async function createTables (dbParams = {}) {
     `, [], dbParams)
 
       await dbExecute('UPDATE version SET version = 10', [], dbParams)
+    }
+    if (version < 11) {
+      console.log('createTables -- creating version 11')
+      await dbExecute(`
+        CREATE TABLE IF NOT EXISTS folders (
+          uuid TEXT PRIMARY KEY NOT NULL,
+          parentUuid TEXT,
+          title TEXT NOT NULL,
+          createdAtMillis INTEGER,
+          updatedAtMillis INTEGER,
+          deleted BOOLEAN DEFAULT false
+        )`, [], dbParams)
+      await dbExecute(`
+        ALTER TABLE operations ADD COLUMN folderUuid TEXT
+      `, [], { ...dbParams, ignoreError: 'duplicate column name' })
+      await dbExecute('UPDATE version SET version = 11', [], dbParams)
     }
   }
 }
