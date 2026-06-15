@@ -133,6 +133,49 @@ export const selectOperationIds = createSelector(
   }
 )
 
+export const selectOperationsInFolder = createSelector(
+  (state) => state?.operations?.info,
+  (state) => state?.settings?.showDeletedOps,
+  (state, folderUuid) => folderUuid,
+  (info, showDeletedOps, folderUuid) => {
+    return Object.values(info || {})
+      .filter((op) => {
+        if (!op?.uuid) return false
+        if (!showDeletedOps && op?.deleted) return false
+        const opFolder = op?.folderUuid ?? null
+        const targetFolder = folderUuid ?? null
+        return opFolder === targetFolder
+      })
+      .sort(_operationSorter)
+  }
+)
+
+export const selectOperationIdsInFolder = createSelector(
+  (state) => state?.operations?.info,
+  (state) => state?.settings?.showDeletedOps,
+  (state, folderUuid) => folderUuid,
+  (info, showDeletedOps, folderUuid) => {
+    return Object.values(info || {})
+      .filter((op) => {
+        if (!op?.uuid) return false
+        if (!showDeletedOps && op?.deleted) return false
+        const opFolder = op?.folderUuid ?? null
+        const targetFolder = folderUuid ?? null
+        return opFolder === targetFolder
+      })
+      .sort(_operationSorter)
+      .map(op => op.uuid)
+  },
+  {
+    memoizeOptions: {
+      resultEqualityCheck: (prevIds, nextIds) => {
+        if (prevIds.length !== nextIds.length) return false
+        return prevIds.every((id, index) => id === nextIds[index])
+      }
+    }
+  }
+)
+
 export const selectOperationCallInfo = createSelector(
   (state, uuid) => selectOperationCall(state, uuid),
   (state) => selectOperatorCall(state),
