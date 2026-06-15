@@ -3,6 +3,7 @@
 
 import { startupStepsForDistribution } from '../../../distro'
 import { loadExtensions, loadEarlyExtensions } from '../../../extensions/loadExtensions'
+import { loadFoldersFromDB } from '../../folders'
 import { loadOperations } from '../../operations'
 import { selectSettings } from '../../settings'
 import { fetchFeatureFlags } from '../../system/fetchFeatureFlags'
@@ -45,6 +46,7 @@ export const startupSequence = (onReady) => (dispatch, getState) => {
       async () => await dispatch(addRuntimeMessage(GLOBAL.t(`screens.start.messages.${message}`, message))),
       async () => await dispatch(fetchFeatureFlags()),
       async () => await dispatch(loadExtensions()),
+      async () => await dispatch(loadFoldersFromDB()),
       async () => await dispatch(loadOperations()),
       async () => await minimumTimePromise,
       ...startupStepsForDistribution({ settings, dispatch })
