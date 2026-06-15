@@ -13,13 +13,17 @@ import { buildTitleForOperation } from '../../OperationScreens/OperationScreen'
 import { selectOperation } from '../../../store/operations'
 import { H2kMarkdown, H2kPressable } from '../../../ui'
 
-export default function OperationItem ({ operationId, settings, onPress, styles, style }) {
+export default function OperationItem ({ operationId, settings, onPress, onLongPress, styles, style }) {
   const operationSelector = useCallback((state) => selectOperation(state, operationId), [operationId])
   const operation = useSelector(operationSelector)
 
   const pressHandler = useCallback(() => {
     onPress && onPress(operation)
   }, [onPress, operation])
+
+  const longPressHandler = useCallback(() => {
+    onLongPress && onLongPress(operation)
+  }, [onLongPress, operation])
 
   const title = useMemo(() => {
     return buildTitleForOperation(operation, { includeCall: false })
@@ -45,6 +49,7 @@ export default function OperationItem ({ operationId, settings, onPress, styles,
   return (
     <H2kPressable
       onPress={pressHandler}
+      onLongPress={longPressHandler}
       accessibilityLabel={tweakStringForVoiceOver(`${operation.stationCallPlus || operation.stationCall} ${title}, ${operation.subtitle}, ${operation.qsoCount ?? 0} Q sos, ${fmtDateDynamicZulu(operation.startAtMillisMax || operation.createdAtMillis)}`)}
       style={styles.rowRoot}
     >
