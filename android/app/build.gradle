@@ -119,7 +119,6 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            applicationIdSuffix ".alpha"
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -127,12 +126,10 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            applicationIdSuffix ".beta"
         }
         prodRelease {
             initWith release
             matchingFallbacks = ['release']
-            applicationIdSuffix ".prod"
         }
     }
 }
