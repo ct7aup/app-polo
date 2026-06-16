@@ -18,9 +18,12 @@ import HomeTools from './components/HomeTools'
 import FolderItem from './components/FolderItem'
 import { trackEvent } from '../../distro'
 import { FlashList } from '@shopify/flash-list'
+import { H2kButton, H2kDialog, H2kDialogActions, H2kDialogContent, H2kDialogTitle, H2kTextInput } from '../../ui'
 import { useIsFocused } from '@react-navigation/native'
 import { useSelectorConditionally } from '../components/useConditionally'
 import {
+  selectAllFolders,
+
   selectFoldersList,
   selectFolderBreadcrumbs,
   selectCurrentFolderUuid,
@@ -42,6 +45,7 @@ export default function HomeScreen ({ navigation }) {
   const settings = useSelectorConditionally(isFocused, selectSettings)
 
   const currentFolderUuid = useSelector(selectCurrentFolderUuid)
+  const allFolders = useSelector(selectAllFolders)
   const subFolders = useSelector((state) => selectFoldersList(state, currentFolderUuid))
   const breadcrumbs = useSelector((state) => selectFolderBreadcrumbs(state, currentFolderUuid))
   const operationIds = useSelector((state) => selectOperationIdsInFolder(state, currentFolderUuid))
@@ -51,6 +55,9 @@ export default function HomeScreen ({ navigation }) {
   const [selectedFolder, setSelectedFolder] = useState(null)
   const [opMenuVisible, setOpMenuVisible] = useState(false)
   const [selectedOpId, setSelectedOpId] = useState(null)
+  const [folderDialogVisible, setFolderDialogVisible] = useState(false)
+  const [folderDialogMode, setFolderDialogMode] = useState('create')
+  const [folderTitle, setFolderTitle] = useState('')
 
   useEffect(() => {
     if (!settings?.operatorCall) {
@@ -78,17 +85,11 @@ export default function HomeScreen ({ navigation }) {
 
   const handleNewFolder = useCallback(() => {
     setFabMenuVisible(false)
-    Alert.prompt(
-      t('screens.home.newFolder', 'New Folder'),
-      t('screens.home.newFolderName', 'Folder name:'),
-      (title) => {
-        if (title?.trim()) {
-          dispatch(createFolder({ title: title.trim(), parentUuid: currentFolderUuid }))
-        }
-      },
-      'plain-text'
-    )
-  }, [dispatch, currentFolderUuid, t])
+    setFolderDialogMode('create')
+    setSelectedFolder(null)
+    setFolderTitle('')
+    setFolderDialogVisible(true)
+  }, [])
 
   const navigateToOperation = useCallback((operation) => {
     navigation.navigate('Operation', { uuid: operation.uuid, operation })
@@ -115,18 +116,10 @@ export default function HomeScreen ({ navigation }) {
   const handleRenameFolder = useCallback(() => {
     setFolderMenuVisible(false)
     if (!selectedFolder) return
-    Alert.prompt(
-      t('screens.home.renameFolder', 'Rename Folder'),
-      '',
-      (title) => {
-        if (title?.trim()) {
-          dispatch(renameFolder({ uuid: selectedFolder.uuid, title: title.trim() }))
-        }
-      },
-      'plain-text',
-      selectedFolder.title
-    )
-  }, [dispatch, selectedFolder, t])
+    setFolderDialogMode('rename')
+    setFolderTitle(selectedFolder.title ?? '')
+    setFolderDialogVisible(true)
+  }, [selectedFolder])
 
   const handleDeleteFolder = useCallback(() => {
     setFolderMenuVisible(false)
@@ -156,6 +149,31 @@ export default function HomeScreen ({ navigation }) {
       dispatch(moveOperationToFolder({ operationUuid: selectedOpId, folderUuid: null }))
     }
   }, [dispatch, selectedOpId])
+
+  const handleMoveToFolder = useCallback((folderUuid) => {
+    setOpMenuVisible(false)
+    if (selectedOpId) {
+      dispatch(moveOperationToFolder({ operationUuid: selectedOpId, folderUuid }))
+    }
+  }, [dispatch, selectedOpId])
+
+  const handleFolderDialogCancel = useCallback(() => {
+    setFolderDialogVisible(false)
+    setFolderTitle('')
+  }, [])
+
+  const handleFolderDialogAccept = useCallback(() => {
+    const title = folderTitle.trim()
+    if (!title) return
+
+    if (folderDialogMode === 'rename' && selectedFolder) {
+      dispatch(renameFolder({ uuid: selectedFolder.uuid, title }))
+    } else {
+      dispatch(createFolder({ title, parentUuid: currentFolderUuid }))
+    }
+    setFolderDialogVisible(false)
+    setFolderTitle('')
+  }, [currentFolderUuid, dispatch, folderDialogMode, folderTitle, selectedFolder])
 
   const renderRow = useCallback(({ item }) => {
     if (item.__type === 'folder') {
@@ -188,6 +206,12 @@ export default function HomeScreen ({ navigation }) {
     const opItems = operationIds
     return [...folderItems, ...opItems]
   }, [subFolders, operationIds])
+
+  const moveTargets = useMemo(() => {
+    return Object.values(allFolders || {})
+      .filter(folder => folder?.uuid && !folder?.deleted && folder.uuid !== currentFolderUuid)
+      .sort((a, b) => (a.title || '').localeCompare(b.title || ''))
+  }, [allFolders, currentFolderUuid])
 
   const [isExtended, setIsExtended] = React.useState(true)
 
@@ -222,12 +246,12 @@ export default function HomeScreen ({ navigation }) {
           anchor={
             <AnimatedFAB
               icon="plus"
-              label={t('screens.home.newOperation', 'New Operation')}
-              accessibilityLabel={t('screens.home.newOperation-a11y', 'screens.home.newOperation', 'New Operation')}
+              label={t('screens.home.new', 'New')}
+              accessibilityLabel={t('screens.home.new-a11y', 'New')}
               mode="elevated"
               extended={isExtended}
               style={styles.fab}
-              onPress={handleNewOperation}
+              onPress={() => setFabMenuVisible(true)}
               onLongPress={() => setFabMenuVisible(true)}
             />
           }
@@ -243,7 +267,26 @@ export default function HomeScreen ({ navigation }) {
 
         <Menu visible={opMenuVisible} onDismiss={() => setOpMenuVisible(false)} anchor={<View />}>
           <Menu.Item onPress={handleMoveToRoot} title={t('screens.home.moveToRoot', 'Move to Root')} leadingIcon="folder-move" />
+          {moveTargets.map(folder => (
+            <Menu.Item key={folder.uuid} onPress={() => handleMoveToFolder(folder.uuid)} title={t('screens.home.moveToFolder', 'Move to {{folder}}', { folder: folder.title })} leadingIcon="folder-move" />
+          ))}
         </Menu>
+
+        <H2kDialog visible={folderDialogVisible} onDismiss={handleFolderDialogCancel}>
+          <H2kDialogTitle>{folderDialogMode === 'rename' ? t('screens.home.renameFolder', 'Rename Folder') : t('screens.home.newFolder', 'New Folder')}</H2kDialogTitle>
+          <H2kDialogContent>
+            <H2kTextInput
+              value={folderTitle}
+              onChangeText={setFolderTitle}
+              placeholder={t('screens.home.newFolderName', 'Folder name')}
+              autoFocus
+            />
+          </H2kDialogContent>
+          <H2kDialogActions>
+            <H2kButton onPress={handleFolderDialogCancel}>{t('common.cancel', 'Cancel')}</H2kButton>
+            <H2kButton onPress={handleFolderDialogAccept} disabled={!folderTitle.trim()}>{t('general.buttons.ok', 'Ok')}</H2kButton>
+          </H2kDialogActions>
+        </H2kDialog>
       </View>
 
       <HomeTools settings={settings} styles={styles} />
