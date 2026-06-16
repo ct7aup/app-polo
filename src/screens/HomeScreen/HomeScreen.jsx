@@ -272,7 +272,8 @@ export default function HomeScreen ({ navigation }) {
           ))}
         </Menu>
 
-        <H2kDialog visible={folderDialogVisible} onDismiss={handleFolderDialogCancel}>
+        {folderDialogVisible && (
+          <H2kDialog visible={folderDialogVisible} onDismiss={handleFolderDialogCancel}>
           <H2kDialogTitle>{folderDialogMode === 'rename' ? t('screens.home.renameFolder', 'Rename Folder') : t('screens.home.newFolder', 'New Folder')}</H2kDialogTitle>
           <H2kDialogContent>
             <H2kTextInput
