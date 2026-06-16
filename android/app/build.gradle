@@ -79,9 +79,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.cdpalma.polo"
+    namespace "com.ct7aup.polo"
     defaultConfig {
-        applicationId "com.cdpalma.polo"
+        applicationId "com.ct7aup.polo"
         minSdkVersion rootProject.ext.minSdkVersion
         ndk {
             abiFilters "arm64-v8a"
@@ -89,16 +89,16 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode project.env.get("POLO_BUILD").toInteger()
         versionName project.env.get("POLO_BASE_VERSION")
-        resValue "string", "build_config_package", "com.cdpalma.polo"
-        resValue "string", "app_name", "PoLo Local"
+        resValue "string", "build_config_package", "com.ct7aup.polo"
+        resValue "string", "app_name", "PoLo CT7AUP"
         manifestPlaceholders = [
-            appAuthRedirectScheme: 'com.cdpalma.polo.auth'
+            appAuthRedirectScheme: 'com.ct7aup.polo.auth'
         ]
     }
 
     applicationVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
-            def baseName = "com.cdpalma.polo-v${variant.versionCode}(${variant.versionName})"
+            def baseName = "com.ct7aup.polo-v${variant.versionCode}(${variant.versionName})"
             outputFileName = "${baseName}-${variant.name}.apk"
         }
     }
