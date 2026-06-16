@@ -131,6 +131,7 @@ android {
         }
         prodRelease {
             initWith release
+            matchingFallbacks = ['release']
             applicationIdSuffix ".prod"
         }
     }
