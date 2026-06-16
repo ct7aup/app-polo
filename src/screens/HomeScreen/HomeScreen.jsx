@@ -287,7 +287,8 @@ export default function HomeScreen ({ navigation }) {
             <H2kButton onPress={handleFolderDialogCancel}>{t('common.cancel', 'Cancel')}</H2kButton>
             <H2kButton onPress={handleFolderDialogAccept} disabled={!folderTitle.trim()}>{t('general.buttons.ok', 'Ok')}</H2kButton>
           </H2kDialogActions>
-        </H2kDialog>
+          </H2kDialog>
+        )}
       </View>
 
       <HomeTools settings={settings} styles={styles} />
