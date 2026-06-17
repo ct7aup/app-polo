@@ -334,10 +334,24 @@ function prepareStyles (baseStyles, { safeArea }) {
     list: {
       flex: 1
     },
+    fabContainer: {
+      ...(baseStyles.isAndroid ? { position: 'absolute' } : {}),
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      zIndex: 10,
+      elevation: 10
+    },
     fab: {
       ...(baseStyles.isAndroid ? { position: 'absolute' } : {}),
       right: Math.max(baseStyles.oneSpace * 2, safeArea.right),
       bottom: Math.max(baseStyles.oneSpace * 2, safeArea.bottom)
+    },
+    folderFab: {
+      ...(baseStyles.isAndroid ? { position: 'absolute' } : {}),
+      right: Math.max(baseStyles.oneSpace * 2, safeArea.right),
+      bottom: Math.max(baseStyles.oneSpace * 10, safeArea.bottom + baseStyles.oneSpace * 10)
     },
     row: {
       ...baseStyles.row,
