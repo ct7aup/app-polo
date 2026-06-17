@@ -240,25 +240,26 @@ export default function HomeScreen ({ navigation }) {
           keyExtractor={(item) => (item.__type === 'folder' ? `folder-${item.uuid}` : item)}
         />
 
-        <Menu
-          visible={fabMenuVisible}
-          onDismiss={() => setFabMenuVisible(false)}
-          anchor={
-            <AnimatedFAB
-              icon="plus"
-              label={t('screens.home.new', 'New')}
-              accessibilityLabel={t('screens.home.new-a11y', 'New')}
-              mode="elevated"
-              extended={isExtended}
-              style={styles.fab}
-              onPress={() => setFabMenuVisible(true)}
-              onLongPress={() => setFabMenuVisible(true)}
-            />
-          }
-        >
-          <Menu.Item onPress={handleNewOperation} title={t('screens.home.newOperation', 'New Log')} leadingIcon="radio-handheld" />
-          <Menu.Item onPress={handleNewFolder} title={t('screens.home.newFolder', 'New Folder')} leadingIcon="folder-plus" />
-        </Menu>
+        <View pointerEvents="box-none" style={styles.fabContainer}>
+          <AnimatedFAB
+            icon="folder-plus"
+            label={t('screens.home.newFolder', 'New Folder')}
+            accessibilityLabel={t('screens.home.newFolder-a11y', 'New Folder')}
+            mode="elevated"
+            extended={isExtended}
+            style={styles.folderFab}
+            onPress={handleNewFolder}
+          />
+          <AnimatedFAB
+            icon="plus"
+            label={t('screens.home.newOperation', 'New Log')}
+            accessibilityLabel={t('screens.home.newOperation-a11y', 'New Log')}
+            mode="elevated"
+            extended={isExtended}
+            style={styles.fab}
+            onPress={handleNewOperation}
+          />
+        </View>
 
         <Menu visible={folderMenuVisible} onDismiss={() => setFolderMenuVisible(false)} anchor={<View />}>
           <Menu.Item onPress={handleRenameFolder} title={t('screens.home.renameFolder', 'Rename')} leadingIcon="pencil" />
