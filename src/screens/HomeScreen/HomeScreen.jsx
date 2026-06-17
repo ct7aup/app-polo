@@ -136,6 +136,7 @@ export default function HomeScreen ({ navigation }) {
 
 function ArchiveItem ({ count, styles, style, onPress }) {
   const { t } = useTranslation()
+  const archiveLabel = t('screens.home.archiveFolder', 'Archive').toUpperCase()
 
   return (
     <H2kPressable
@@ -145,9 +146,9 @@ function ArchiveItem ({ count, styles, style, onPress }) {
     >
       <View style={[styles.row, style, { paddingHorizontal: 0 }]}> 
         <View style={styles.rowTop}>
-          <View style={[styles.rowTopLeft, { flexDirection: 'row', alignItems: 'center', gap: styles.oneSpace }]}> 
-            <Icon source="archive-outline" size={styles.normalFontSize * 1.5} />
-            <Text style={styles.rowText}>{t('screens.home.archiveFolder', 'Archive')}</Text>
+          <View style={[styles.rowTopLeft, styles.archiveLabelRow]}> 
+            <Text style={styles.rowText}>{archiveLabel}</Text>
+            <Icon source="archive-outline" size={styles.normalFontSize * 1.3} />
           </View>
           <View style={styles.rowTopRight}>
             <View style={styles.countContainer}>
@@ -162,13 +163,18 @@ function ArchiveItem ({ count, styles, style, onPress }) {
 
 function ArchiveHeader ({ styles, onBack }) {
   const { t } = useTranslation()
+  const archiveLabel = t('screens.home.archiveFolder', 'Archive').toUpperCase()
 
   return (
     <H2kPressable onPress={onBack} accessibilityLabel={t('screens.home.archiveBack-a11y', 'Back to operations')} style={styles.rowRoot}>
-      <View style={[styles.row, { flexDirection: 'row', alignItems: 'center', gap: styles.oneSpace }]}> 
-        <Text style={styles.rowText}>{'←'}</Text>
-        <Icon source="archive-outline" size={styles.normalFontSize * 1.5} />
-        <Text style={styles.rowText}>{t('screens.home.archiveFolder', 'Archive')}</Text>
+      <View style={[styles.row, { paddingHorizontal: styles.row.paddingHorizontal }]}> 
+        <View style={[styles.rowTop, { alignItems: 'center' }]}> 
+          <View style={[styles.rowTopLeft, styles.archiveLabelRow]}> 
+            <Text style={styles.rowText}>{'←'}</Text>
+            <Icon source="archive-outline" size={styles.normalFontSize * 1.3} />
+            <Text style={styles.rowText}>{archiveLabel}</Text>
+          </View>
+        </View>
       </View>
     </H2kPressable>
   )
@@ -215,6 +221,11 @@ function prepareStyles (baseStyles, { safeArea }) {
     rowTop: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      gap: baseStyles.oneSpace
+    },
+    archiveLabelRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
       gap: baseStyles.oneSpace
     },
     rowBottom: {
