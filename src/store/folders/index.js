@@ -4,3 +4,5 @@
 export { default as foldersReducer, actions as foldersActions, selectAllFolders, selectCurrentFolderUuid, selectFoldersList, selectFolderBreadcrumbs, selectCurrentFolder } from './foldersSlice'
 export { foldersSlice } from './foldersSlice'
 export { loadFoldersFromDB, createFolder, renameFolder, deleteFolder, moveOperationToFolder, moveFolderToFolder } from './actions/foldersDB'
+
+export { default } from './foldersSlice'
