@@ -50,6 +50,7 @@ react {
     //
     //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
     // hermesFlags = ["-O", "-output-source-map"]
+    hermesFlags = ["-O"]
 
     /* Autolinking */
     autolinkLibrariesWithApp()
@@ -79,22 +80,26 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.ham2k.polo"
+    namespace "com.ct7aup.polo"
     defaultConfig {
-        applicationId "com.ham2k.polo"
+        applicationId "com.ct7aup.polo"
         minSdkVersion rootProject.ext.minSdkVersion
+        ndk {
+            abiFilters "arm64-v8a"
+        }
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode project.env.get("POLO_BUILD").toInteger()
         versionName project.env.get("POLO_BASE_VERSION")
-        resValue "string", "build_config_package", "com.ham2k.polo"
+        resValue "string", "build_config_package", "com.ct7aup.polo"
+        resValue "string", "app_name", "PoLo CT7AUP"
         manifestPlaceholders = [
-            appAuthRedirectScheme: 'com.ham2k.polo.auth'
+            appAuthRedirectScheme: 'com.ct7aup.polo.auth'
         ]
     }
 
     applicationVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
-            def baseName = "com.ham2k.polo-v${variant.versionCode}(${variant.versionName})"
+            def baseName = "com.ct7aup.polo-v${variant.versionCode}(${variant.versionName})"
             outputFileName = "${baseName}-${variant.name}.apk"
         }
     }
@@ -115,7 +120,6 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            applicationIdSuffix ".alpha"
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -123,11 +127,10 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            applicationIdSuffix ".beta"
         }
         prodRelease {
             initWith release
-            applicationIdSuffix ".prod"
+            matchingFallbacks = ['release']
         }
     }
 }
