@@ -24,7 +24,10 @@
       "noOperations": "Žiadne operácie!",
       "settings-a11y": "Nastavenia",
       "quickCallLookupPlaceholder": "Rýchle vyhľadávanie volacieho znaku…",
-      "spots-a11y": "Spoty"
+      "spots-a11y": "Spoty",
+      "archiveFolder": "Archív",
+      "archiveFolder-a11y": "Archív",
+      "archiveBack-a11y": "Späť na operácie"
     },
     "operation": {
       "title": "Prevádzka"
@@ -113,7 +116,10 @@
         "title": "Vymazať túto prevádzku?",
         "description": "Naozaj chcete vymazať túto prevádzku?"
       },
-      "errorSavingExport": "Nepodarilo sa uložiť súbor"
+      "errorSavingExport": "Nepodarilo sa uložiť súbor",
+      "operationManagement": "Správa operácie",
+      "archived": "Archivované",
+      "archivedDescription": "Zobraziť túto operáciu v Archíve"
     },
     "callInfo": {
       "title": "Informácie o volacom znaku",

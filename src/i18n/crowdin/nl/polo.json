@@ -24,7 +24,10 @@
       "noOperations": "Geen activaties!",
       "settings-a11y": "Instellingen",
       "quickCallLookupPlaceholder": "Snelle zoeker roepnaam…",
-      "spots-a11y": "Spots"
+      "spots-a11y": "Spots",
+      "archiveFolder": "Archief",
+      "archiveFolder-a11y": "Archief",
+      "archiveBack-a11y": "Terug naar operaties"
     },
     "operation": {
       "title": "Activatie"
@@ -113,7 +116,10 @@
         "title": "Activatie verwijderen?",
         "description": "Weet u zeker dat u deze activatie wilt verwijderen?"
       },
-      "errorSavingExport": "Kon bestand niet opslaan"
+      "errorSavingExport": "Kon bestand niet opslaan",
+      "operationManagement": "Operatiebeheer",
+      "archived": "Gearchiveerd",
+      "archivedDescription": "Toon deze operatie in Archief"
     },
     "callInfo": {
       "title": "Roepnaam Info",

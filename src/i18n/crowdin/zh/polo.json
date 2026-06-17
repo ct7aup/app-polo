@@ -24,7 +24,10 @@
       "noOperations": "无操作！",
       "settings-a11y": "设置",
       "quickCallLookupPlaceholder": "快速呼叫查找…",
-      "spots-a11y": "信号"
+      "spots-a11y": "信号",
+      "archiveFolder": "存档",
+      "archiveFolder-a11y": "存档",
+      "archiveBack-a11y": "返回操作列表"
     },
     "operation": {
       "title": "操作"
@@ -113,7 +116,10 @@
         "title": "删除操作？",
         "description": "确定要删除此操作吗？"
       },
-      "errorSavingExport": "无法保存文件"
+      "errorSavingExport": "无法保存文件",
+      "operationManagement": "操作管理",
+      "archived": "已存档",
+      "archivedDescription": "在存档中显示此操作"
     },
     "callInfo": {
       "title": "呼号信息",

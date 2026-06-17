@@ -24,7 +24,10 @@
       "noOperations": "Žádné aktivity!",
       "settings-a11y": "Nastavení",
       "quickCallLookupPlaceholder": "Rychlé vyhledání značky…",
-      "spots-a11y": "Spoty"
+      "spots-a11y": "Spoty",
+      "archiveFolder": "Archiv",
+      "archiveFolder-a11y": "Archiv",
+      "archiveBack-a11y": "Zpět na operace"
     },
     "operation": {
       "title": "Aktivita"
@@ -113,7 +116,10 @@
         "title": "Smazat operaci?",
         "description": "Jste si jisti, že chcete smazat tuto operaci?"
       },
-      "errorSavingExport": "Nepodařilo se uložit soubor"
+      "errorSavingExport": "Nepodařilo se uložit soubor",
+      "operationManagement": "Správa operace",
+      "archived": "Archivováno",
+      "archivedDescription": "Zobrazit tuto operaci v Archivu"
     },
     "callInfo": {
       "title": "Informace o volací značce",

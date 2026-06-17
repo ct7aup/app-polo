@@ -24,7 +24,10 @@
       "noOperations": "Operasyon Yok!",
       "settings-a11y": "Ayarlar",
       "quickCallLookupPlaceholder": "Hızlı Arama Çağrısı…",
-      "spots-a11y": "Görevler"
+      "spots-a11y": "Görevler",
+      "archiveFolder": "Arşiv",
+      "archiveFolder-a11y": "Arşiv",
+      "archiveBack-a11y": "Operasyonlara dön"
     },
     "operation": {
       "title": "Operasyon"
@@ -113,7 +116,10 @@
         "title": "Operasyonu sil?",
         "description": "Bu operasyonu silmek istediğinizden emin misiniz?"
       },
-      "errorSavingExport": "Dosya kaydedilemedi"
+      "errorSavingExport": "Dosya kaydedilemedi",
+      "operationManagement": "Operasyon Yönetimi",
+      "archived": "Arşivlendi",
+      "archivedDescription": "Bu operasyonu Arşivde göster"
     },
     "callInfo": {
       "title": "Çağrı İşareti Bilgisi",

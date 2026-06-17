@@ -24,7 +24,10 @@
       "noOperations": "no operations!",
       "settings-a11y": "settings",
       "quickCallLookupPlaceholder": "quick call lookup…",
-      "spots-a11y": "spots"
+      "spots-a11y": "spots",
+      "archiveFolder": "archive",
+      "archiveFolder-a11y": "archive",
+      "archiveBack-a11y": "back to operations"
     },
     "operation": {
       "title": "operation"
@@ -108,7 +111,10 @@
       "deleteOperationDialog": {
         "title": "delete operation?",
         "description": "are you sure you want to delete this operation?"
-      }
+      },
+      "operationManagement": "operation management",
+      "archived": "archived",
+      "archivedDescription": "show this operation in archive"
     },
     "callInfo": {
       "title": "callsign info",

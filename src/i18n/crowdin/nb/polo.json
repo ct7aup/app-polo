@@ -24,7 +24,10 @@
       "noOperations": "Ingen operasjoner!",
       "settings-a11y": "Innstillinger",
       "quickCallLookupPlaceholder": "Slå opp kallesignal…",
-      "spots-a11y": "Spotter"
+      "spots-a11y": "Spotter",
+      "archiveFolder": "Arkiv",
+      "archiveFolder-a11y": "Arkiv",
+      "archiveBack-a11y": "Tilbake til operasjoner"
     },
     "operation": {
       "title": "Operasjon"
@@ -113,7 +116,10 @@
         "title": "Slett operasjon?",
         "description": "Er du sikker på at du vil slette denne operasjonen?"
       },
-      "errorSavingExport": "Kunne ikke lagre fil"
+      "errorSavingExport": "Kunne ikke lagre fil",
+      "operationManagement": "Operasjonsadministrasjon",
+      "archived": "Arkivert",
+      "archivedDescription": "Vis denne operasjonen i Arkiv"
     },
     "callInfo": {
       "title": "Kallesignalinfo",

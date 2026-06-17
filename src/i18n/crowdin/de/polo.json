@@ -24,7 +24,10 @@
       "noOperations": "Kein Betrieb!",
       "settings-a11y": "Einstellungen",
       "quickCallLookupPlaceholder": "Rufzeichen nachschlagen…",
-      "spots-a11y": "Spots"
+      "spots-a11y": "Spots",
+      "archiveFolder": "Archiv",
+      "archiveFolder-a11y": "Archiv",
+      "archiveBack-a11y": "Zurück zu den Aktivitäten"
     },
     "operation": {
       "title": "Betrieb"
@@ -113,7 +116,10 @@
         "title": "Funkbetrieb löschen?",
         "description": "Bist du sicher, dass du diese Operation löschen möchtest?"
       },
-      "errorSavingExport": "Konnte Datei nicht speichern"
+      "errorSavingExport": "Konnte Datei nicht speichern",
+      "operationManagement": "Aktivitätsverwaltung",
+      "archived": "Archiviert",
+      "archivedDescription": "Diese Aktivität im Archiv anzeigen"
     },
     "callInfo": {
       "title": "Rufzeichen Info",

@@ -24,7 +24,10 @@
       "noOperations": "オペレーションがありません！",
       "settings-a11y": "設定",
       "quickCallLookupPlaceholder": "クイックコール検索…",
-      "spots-a11y": "スポット"
+      "spots-a11y": "スポット",
+      "archiveFolder": "アーカイブ",
+      "archiveFolder-a11y": "アーカイブ",
+      "archiveBack-a11y": "運用一覧に戻る"
     },
     "operation": {
       "title": "オペレーション"
@@ -113,7 +116,10 @@
         "title": "操作を削除しますか？",
         "description": "本当にこの操作を削除してもよろしいですか？"
       },
-      "errorSavingExport": "ファイルを保存できませんでした"
+      "errorSavingExport": "ファイルを保存できませんでした",
+      "operationManagement": "運用管理",
+      "archived": "アーカイブ済み",
+      "archivedDescription": "この運用をアーカイブに表示"
     },
     "callInfo": {
       "title": "コールサイン情報",

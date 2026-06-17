@@ -24,7 +24,10 @@
       "noOperations": "No hi ha operacions!",
       "settings-a11y": "Configuració",
       "quickCallLookupPlaceholder": "Cerca ràpida d’indicatius…",
-      "spots-a11y": "Anuncis"
+      "spots-a11y": "Anuncis",
+      "archiveFolder": "Arxiu",
+      "archiveFolder-a11y": "Arxiu",
+      "archiveBack-a11y": "Torna a les operacions"
     },
     "operation": {
       "title": "Operació"
@@ -113,7 +116,10 @@
         "title": "Esborrar operació?",
         "description": "Estàs segur que vols esborrar aquesta operació?"
       },
-      "errorSavingExport": "No s'ha pogut desar el fitxer"
+      "errorSavingExport": "No s'ha pogut desar el fitxer",
+      "operationManagement": "Gestió de l’operació",
+      "archived": "Arxivat",
+      "archivedDescription": "Mostra aquesta operació a l’Arxiu"
     },
     "callInfo": {
       "title": "Informació de l'indicatiu",

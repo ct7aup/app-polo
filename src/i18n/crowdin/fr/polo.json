@@ -24,7 +24,10 @@
       "noOperations": "Aucune opération !",
       "settings-a11y": "Paramètres",
       "quickCallLookupPlaceholder": "Recherche rapide d'indicatif…",
-      "spots-a11y": "Spots"
+      "spots-a11y": "Spots",
+      "archiveFolder": "Archives",
+      "archiveFolder-a11y": "Archives",
+      "archiveBack-a11y": "Retour aux opérations"
     },
     "operation": {
       "title": "Opération"
@@ -113,7 +116,10 @@
         "title": "Supprimer l'opération ?",
         "description": "Êtes-vous sûr de vouloir supprimer cette opération ?"
       },
-      "errorSavingExport": "Impossible de sauvegarder le fichier"
+      "errorSavingExport": "Impossible de sauvegarder le fichier",
+      "operationManagement": "Gestion de l’opération",
+      "archived": "Archivé",
+      "archivedDescription": "Afficher cette opération dans les Archives"
     },
     "callInfo": {
       "title": "Infos sur l'indicatif",

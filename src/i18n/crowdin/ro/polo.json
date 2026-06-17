@@ -24,7 +24,10 @@
       "noOperations": "Nicio Operațiune!",
       "settings-a11y": "Setări",
       "quickCallLookupPlaceholder": "Căutare Rapida a Apelului…",
-      "spots-a11y": "Locații"
+      "spots-a11y": "Locații",
+      "archiveFolder": "Arhivă",
+      "archiveFolder-a11y": "Arhivă",
+      "archiveBack-a11y": "Înapoi la operațiuni"
     },
     "operation": {
       "title": "Operațiune"
@@ -113,7 +116,10 @@
         "title": "Ștergeți operațiunea?",
         "description": "Sunteţi sigur că doriţi să ştergeţi această operaţiune?"
       },
-      "errorSavingExport": "Nu s-a putut salva fișierul"
+      "errorSavingExport": "Nu s-a putut salva fișierul",
+      "operationManagement": "Gestionarea operațiunii",
+      "archived": "Arhivat",
+      "archivedDescription": "Afișează această operațiune în Arhivă"
     },
     "callInfo": {
       "title": "Informații Indicativ",
