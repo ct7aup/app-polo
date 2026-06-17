@@ -137,6 +137,12 @@ export default function HomeScreen ({ navigation }) {
 function ArchiveItem ({ count, styles, style, onPress }) {
   const { t } = useTranslation()
   const archiveLabel = t('screens.home.archiveFolder', 'Archive').toUpperCase()
+  const rowStyle = {
+    ...styles.row,
+    paddingHorizontal: 0,
+    paddingLeft: Math.max(styles?.row?.paddingHorizontal, style?.paddingLeft ?? 0),
+    paddingRight: Math.max(styles.row.paddingHorizontal, style?.paddingRight ?? 0)
+  }
 
   return (
     <H2kPressable
@@ -144,10 +150,10 @@ function ArchiveItem ({ count, styles, style, onPress }) {
       accessibilityLabel={t('screens.home.archiveFolder-a11y', 'Archive')}
       style={styles.rowRoot}
     >
-      <View style={[styles.row, style, { paddingHorizontal: 0 }]}> 
+      <View style={rowStyle}> 
         <View style={styles.rowTop}>
           <View style={[styles.rowTopLeft, styles.archiveLabelRow]}> 
-            <Text style={styles.rowText}>{archiveLabel}</Text>
+            <Text style={[styles.rowText, { fontWeight: 'bold' }]}>{archiveLabel}</Text>
             <Icon source="archive-outline" size={styles.normalFontSize * 1.3} />
           </View>
           <View style={styles.rowTopRight}>
@@ -172,7 +178,7 @@ function ArchiveHeader ({ styles, onBack }) {
           <View style={[styles.rowTopLeft, styles.archiveLabelRow]}> 
             <Text style={styles.rowText}>{'←'}</Text>
             <Icon source="archive-outline" size={styles.normalFontSize * 1.3} />
-            <Text style={styles.rowText}>{archiveLabel}</Text>
+            <Text style={[styles.rowText, { fontWeight: 'bold' }]}>{archiveLabel}</Text>
           </View>
         </View>
       </View>
