@@ -6,8 +6,21 @@ import { dbExecute, dbSelectAll } from '../../db/db'
 import { actions as foldersActions } from '../foldersSlice'
 import { actions as operationsActions } from '../../operations/operationsSlice'
 
+async function ensureFolderSchema (dbParams = {}) {
+  await dbExecute(`
+    CREATE TABLE IF NOT EXISTS folders (
+      uuid TEXT PRIMARY KEY NOT NULL,
+      parentUuid TEXT,
+      title TEXT NOT NULL,
+      createdAtMillis INTEGER,
+      updatedAtMillis INTEGER,
+      deleted BOOLEAN DEFAULT false
+    )`, [], dbParams)
+  await dbExecute('ALTER TABLE operations ADD COLUMN folderUuid TEXT', [], { ...dbParams, ignoreError: 'duplicate column name' })
+}
 export function loadFoldersFromDB (dbParams = {}) {
   return async (dispatch) => {
+    await ensureFolderSchema(dbParams)
     const rows = await dbSelectAll('SELECT * FROM folders WHERE deleted = 0', [], dbParams)
     dispatch(foldersActions.setFolders(rows))
   }
@@ -17,16 +30,18 @@ export function createFolder ({ title, parentUuid = null }, dbParams = {}) {
   return async (dispatch) => {
     const uuid = UUID.v4()
     const now = Date.now()
+    const folder = { uuid, parentUuid, title, createdAtMillis: now, updatedAtMillis: now, deleted: false }
+
+    dispatch(foldersActions.setFolder(folder))
+    await ensureFolderSchema(dbParams)
     await dbExecute(
       'INSERT INTO folders (uuid, parentUuid, title, createdAtMillis, updatedAtMillis, deleted) VALUES (?, ?, ?, ?, ?, 0)',
       [uuid, parentUuid, title, now, now],
       dbParams
     )
-    dispatch(foldersActions.setFolder({ uuid, parentUuid, title, createdAtMillis: now, updatedAtMillis: now, deleted: false }))
     return uuid
   }
 }
-
 export function renameFolder ({ uuid, title }, dbParams = {}) {
   return async (dispatch) => {
     const now = Date.now()
